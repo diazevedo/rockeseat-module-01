@@ -4,15 +4,27 @@ const express = require("express");
 const server = express();
 //Tells to express use json
 server.use(express.json());
+
+const users = ["Diego", "Diully", "Alfredo"];
+
 /**It is a middleware */
 server.use((req, res, next) => {
-  console.log(`Request received using ${req.method}`);
+  console.log(
+    `It is a global middleware - Request received using ${req.method}`
+  );
   return next();
 });
 
 const checkUserExists = (req, res, next) => {
   if (!req.body.name)
     return res.status(400).json({ error: "User name is required" });
+
+  return next();
+};
+
+const checkUserInArray = (req, res, next) => {
+  if (!users[req.params.index])
+    return res.status(400).json({ error: "User not found" });
 
   return next();
 };
@@ -32,12 +44,11 @@ server.get("/test/:id", (req, res) => {
   res.json({ message: `Your name is ${name} and your ID is ${id}` });
 });
 
-const users = ["Diego", "Diully", "Alfredo"];
 server.get("/users", (req, res) => {
   res.json(users);
 });
 
-server.get("/users/:index", (req, res) => {
+server.get("/users/:index", checkUserInArray, (req, res) => {
   const { index } = req.params;
   res.json(users[index]);
 });
