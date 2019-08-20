@@ -17,5 +17,10 @@ server.get("/test/:id", (req, res) => {
   res.json({ message: `Your name is ${name} and your ID is ${id}` });
 });
 
+const users = ["Diego", "Diully", "Alfredo"];
+server.get("/users", (req, res) => {
+  res.json(users);
+});
+
 //localhost:3000/test
 server.listen(3000);
