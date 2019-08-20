@@ -22,5 +22,10 @@ server.get("/users", (req, res) => {
   res.json(users);
 });
 
+server.get("/users/:index", (req, res) => {
+  const { index } = req.params;
+  res.json(users[index]);
+});
+
 //localhost:3000/test
 server.listen(3000);
