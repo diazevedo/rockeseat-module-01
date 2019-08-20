@@ -4,6 +4,18 @@ const express = require("express");
 const server = express();
 //Tells to express use json
 server.use(express.json());
+/**It is a middleware */
+server.use((req, res, next) => {
+  console.log(`Request received using ${req.method}`);
+  return next();
+});
+
+const checkUserExists = (req, res, next) => {
+  if (!req.body.name)
+    return res.status(400).json({ error: "User name is required" });
+
+  return next();
+};
 /**
  * Query params =>  ?name=diego => req.query
  * Route params => /users/125 => req.params
@@ -12,6 +24,7 @@ server.use(express.json());
  * res.send() => To send a plain text return
  * res.json({}) => To send an object
  */
+
 server.get("/test/:id", (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
@@ -29,13 +42,13 @@ server.get("/users/:index", (req, res) => {
   res.json(users[index]);
 });
 
-server.post("/users", (req, res) => {
+server.post("/users", checkUserExists, (req, res) => {
   const { name } = req.body;
   users.push(name);
   res.json(users);
 });
 
-server.put("/users/:index", (req, res) => {
+server.put("/users/:index", checkUserExists, (req, res) => {
   const { index } = req.params;
   const { name } = req.body;
 
