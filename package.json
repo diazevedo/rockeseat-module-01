@@ -5,7 +5,13 @@
   "repository": "git@github.com:diazevedo/rockeseat-module-01.git",
   "author": "Diego Azevedo <dapptn@hotmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }
