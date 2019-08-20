@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:diazevedo/rockeseat-module-01.git",
   "author": "Diego Azevedo <dapptn@hotmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
